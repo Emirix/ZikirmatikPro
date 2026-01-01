@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ayarlar - Zikir Sayacı</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "primary-dark": "#0fae42",
+              "background-light": "#f2f2f7", // iOS system gray 6 light
+              "background-dark": "#000000", // iOS system pure black
+              "surface-light": "#ffffff",
+              "surface-dark": "#1c1c1e", // iOS grouped background dark
+              "text-secondary": "#8e8e93",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.5rem", 
+                "lg": "0.75rem", 
+                "xl": "1rem", 
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto overflow-x-hidden pb-10">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-white/5 transition-colors duration-200">
+<div class="flex items-center p-4 pb-3 justify-between">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all text-primary">
+<span class="material-symbols-outlined text-[28px]">arrow_back_ios_new</span>
+</button>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Ayarlar</h2>
+</div>
+</header>
+<main class="flex-1 px-4 pt-6 space-y-6">
+<!-- Premium Banner (Focused & Non-Intrusive) -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1c3a26] to-[#112217] border border-primary/20 p-5 shadow-lg">
+<div class="absolute top-0 right-0 -mt-2 -mr-2 h-20 w-20 rounded-full bg-primary/10 blur-xl"></div>
+<div class="relative flex items-center gap-4">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-white">Reklamsız Deneyim</h3>
+<p class="text-sm text-gray-400">Daha odaklı bir zikir için Pro'ya geçin.</p>
+</div>
+</div>
+</div>
+<!-- Section: Hatırlatıcılar -->
+<section class="space-y-3">
+<h3 class="px-2 text-sm font-semibold uppercase tracking-wider text-text-secondary">Hatırlatıcılar</h3>
+<div class="overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/5">
+<!-- Toggle List Item -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4 overflow-hidden">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div class="flex flex-col">
+<p class="text-base font-medium truncate">Günlük Hatırlatıcı</p>
+<p class="text-xs text-text-secondary truncate">Zikir alışkanlığınızı koruyun</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="peer h-7 w-12 rounded-full bg-gray-200 dark:bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-6 after:w-6 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600"></div>
+</label>
+</div>
+</div>
+<!-- Divider -->
+<div class="ml-[68px] h-px bg-gray-200 dark:bg-white/10"></div>
+<!-- Time Picker Item -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<p class="text-base font-medium">Hatırlatma Zamanı</p>
+</div>
+<div class="shrink-0 flex items-center gap-2 bg-gray-100 dark:bg-black/20 px-3 py-1.5 rounded-lg group-hover:bg-gray-200 dark:group-hover:bg-black/40 transition-colors">
+<span class="text-base font-semibold text-primary">21:00</span>
+</div>
+</div>
+<!-- Divider -->
+<div class="ml-[68px] h-px bg-gray-200 dark:bg-white/10"></div>
+<!-- Frequency Item -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500">
+<span class="material-symbols-outlined">update</span>
+</div>
+<p class="text-base font-medium">Sıklık</p>
+</div>
+<div class="shrink-0 flex items-center gap-1 text-text-secondary">
+<span class="text-sm">Her Gün</span>
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Uygulama İçi Geri Bildirim -->
+<section class="space-y-3">
+<h3 class="px-2 text-sm font-semibold uppercase tracking-wider text-text-secondary">Deneyim &amp; Kontrol</h3>
+<div class="overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/5">
+<!-- Haptic Feedback -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
+<span class="material-symbols-outlined">vibration</span>
+</div>
+<p class="text-base font-medium">Titreşim</p>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="peer h-7 w-12 rounded-full bg-gray-200 dark:bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-6 after:w-6 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600"></div>
+</label>
+</div>
+</div>
+<!-- Divider -->
+<div class="ml-[68px] h-px bg-gray-200 dark:bg-white/10"></div>
+<!-- Sound Effect -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500">
+<span class="material-symbols-outlined">volume_up</span>
+</div>
+<p class="text-base font-medium">Ses Efekti</p>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox"/>
+<div class="peer h-7 w-12 rounded-full bg-gray-200 dark:bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-6 after:w-6 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600"></div>
+</label>
+</div>
+</div>
+<!-- Divider -->
+<div class="ml-[68px] h-px bg-gray-200 dark:bg-white/10"></div>
+<!-- Silent Mode -->
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500">
+<span class="material-symbols-outlined">do_not_disturb_on</span>
+</div>
+<div class="flex flex-col">
+<p class="text-base font-medium">Sessiz Mod</p>
+<p class="text-xs text-text-secondary">Tüm sesleri kapat</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox"/>
+<div class="peer h-7 w-12 rounded-full bg-gray-200 dark:bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-6 after:w-6 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Görünüm -->
+<section class="space-y-3">
+<h3 class="px-2 text-sm font-semibold uppercase tracking-wider text-text-secondary">Görünüm</h3>
+<div class="overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/5 p-4 space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-500/10 dark:bg-white/10 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined">palette</span>
+</div>
+<p class="text-base font-medium">Tema Rengi</p>
+</div>
+</div>
+<!-- Color Swatches -->
+<div class="flex items-center justify-between px-2 pt-1">
+<!-- Green (Active) -->
+<button class="group relative flex h-10 w-10 items-center justify-center rounded-full bg-[#13ec5b] ring-2 ring-[#13ec5b] ring-offset-2 ring-offset-background-light dark:ring-offset-surface-dark">
+<span class="material-symbols-outlined text-black text-xl">check</span>
+</button>
+<!-- Blue -->
+<button class="h-10 w-10 rounded-full bg-[#3b82f6] hover:scale-110 transition-transform"></button>
+<!-- Purple -->
+<button class="h-10 w-10 rounded-full bg-[#8b5cf6] hover:scale-110 transition-transform"></button>
+<!-- Amber -->
+<button class="h-10 w-10 rounded-full bg-[#f59e0b] hover:scale-110 transition-transform"></button>
+<!-- Rose -->
+<button class="h-10 w-10 rounded-full bg-[#f43f5e] hover:scale-110 transition-transform"></button>
+</div>
+</div>
+</section>
+<!-- Section: Genel -->
+<section class="space-y-3 pb-8">
+<div class="overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/5">
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-500/10 dark:bg-white/10 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined">info</span>
+</div>
+<p class="text-base font-medium">Hakkında</p>
+</div>
+<div class="shrink-0 flex items-center gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+<div class="ml-[68px] h-px bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-500/10 dark:bg-white/10 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-base font-medium">Bizi Değerlendirin</p>
+</div>
+<div class="shrink-0 flex items-center gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</div>
+<p class="text-center text-xs text-text-secondary pt-4">Sürüm 1.4.2 (Build 204)</p>
+</section>
+</main>
+</div>
+<!-- Interactive JS Emulation (Visual Only) -->
+<script>
+        // Simple script to toggle checkboxes visually for demonstration
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(box => {
+            box.addEventListener('change', (e) => {
+                // In a real app, this would trigger state changes
+                console.log('Toggle changed:', e.target.checked);
+            });
+        });
+    </script>
+</body></html>

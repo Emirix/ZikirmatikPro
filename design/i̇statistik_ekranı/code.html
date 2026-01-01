@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>İstatistik Ekranı</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for nice scroll and specific UI tweaks */
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden pb-8">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-50 flex items-center justify-between px-4 py-4 backdrop-blur-xl bg-background-light/80 dark:bg-background-dark/80 transition-colors">
+<button class="group flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[24px] text-slate-900 dark:text-white group-hover:opacity-100 opacity-80">arrow_back</span>
+</button>
+<h2 class="flex-1 text-center text-lg font-bold leading-tight tracking-tight text-slate-900 dark:text-white">İstatistikler</h2>
+<div class="size-10 shrink-0"></div> <!-- Spacer to balance back button -->
+</div>
+<!-- Main Content Area -->
+<div class="flex flex-col gap-8 px-5 pt-2">
+<!-- Segmented Control (Time Period) -->
+<div class="flex p-1.5 bg-gray-200/50 dark:bg-white/5 rounded-2xl border border-transparent dark:border-white/5">
+<label class="flex-1 cursor-pointer relative group">
+<input class="peer sr-only" name="period" type="radio" value="gun"/>
+<div class="flex items-center justify-center py-2.5 rounded-xl text-sm font-semibold text-gray-500 dark:text-gray-400 transition-all duration-300 peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-slate-900 dark:peer-checked:text-primary peer-checked:shadow-sm">
+                        Gün
+                    </div>
+</label>
+<label class="flex-1 cursor-pointer relative group">
+<input checked="" class="peer sr-only" name="period" type="radio" value="hafta"/>
+<div class="flex items-center justify-center py-2.5 rounded-xl text-sm font-semibold text-gray-500 dark:text-gray-400 transition-all duration-300 peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-slate-900 dark:peer-checked:text-primary peer-checked:shadow-sm">
+                        Hafta
+                    </div>
+</label>
+<label class="flex-1 cursor-pointer relative group">
+<input class="peer sr-only" name="period" type="radio" value="ay"/>
+<div class="flex items-center justify-center py-2.5 rounded-xl text-sm font-semibold text-gray-500 dark:text-gray-400 transition-all duration-300 peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-slate-900 dark:peer-checked:text-primary peer-checked:shadow-sm">
+                        Ay
+                    </div>
+</label>
+</div>
+<!-- Hero Chart Section -->
+<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center gap-1 mb-8">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Bu Periyodun Toplamı</p>
+<h1 class="text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white drop-shadow-lg">1,250</h1>
+</div>
+<!-- Minimalist Chart -->
+<div class="relative h-[180px] w-full">
+<!-- Chart SVG -->
+<svg class="h-full w-full overflow-visible" preserveaspectratio="none" viewbox="0 0 345 150">
+<defs>
+<lineargradient id="chart-gradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13ec5b" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#13ec5b" stop-opacity="0"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Main Path Area -->
+<path d="M0,100 C50,90 80,120 120,80 C160,40 200,60 250,40 C300,20 320,50 345,30 V150 H0 Z" fill="url(#chart-gradient)"></path>
+<!-- Stroke Line -->
+<path d="M0,100 C50,90 80,120 120,80 C160,40 200,60 250,40 C300,20 320,50 345,30" fill="none" filter="url(#glow)" stroke="#13ec5b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Interactive Point Indicator (Static for design) -->
+<circle cx="250" cy="40" fill="#102216" r="5" stroke="#13ec5b" stroke-width="2.5"></circle>
+</svg>
+<!-- X-Axis Labels -->
+<div class="absolute -bottom-6 left-0 right-0 flex justify-between px-1">
+<span class="text-xs font-semibold text-gray-400/80">Pzt</span>
+<span class="text-xs font-semibold text-gray-400/80">Sal</span>
+<span class="text-xs font-semibold text-gray-400/80">Çar</span>
+<span class="text-xs font-semibold text-gray-400/80">Per</span>
+<span class="text-xs font-semibold text-gray-400/80">Cum</span>
+<span class="text-xs font-semibold text-gray-400/80">Cmt</span>
+<span class="text-xs font-semibold text-gray-400/80">Paz</span>
+</div>
+</div>
+</div>
+<div class="h-2"></div>
+<!-- Streak Card -->
+<div class="relative overflow-hidden rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-xl dark:shadow-none p-6 group">
+<!-- Ambient background glow effect -->
+<div class="absolute -top-10 -right-10 size-40 rounded-full bg-primary/10 blur-[50px] transition-all duration-700 group-hover:bg-primary/20"></div>
+<div class="relative z-10 flex flex-col gap-6">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">12 Günlük Seri</h3>
+<p class="text-sm font-medium text-primary">Bugün tutarlısın, maşallah.</p>
+</div>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-xs font-medium text-gray-500 dark:text-gray-400">
+<span>Hedef: 30 Gün</span>
+<span>%40</span>
+</div>
+<div class="h-2.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-black/30">
+<div class="h-full w-[40%] rounded-full bg-primary shadow-[0_0_10px_rgba(19,236,91,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown List -->
+<div class="flex flex-col gap-4 mt-2">
+<h3 class="px-1 text-base font-bold text-slate-900 dark:text-white">Ayrıntılar</h3>
+<!-- List Item 1 -->
+<div class="flex items-center justify-between rounded-2xl bg-white dark:bg-white/5 p-4 border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">radio_button_checked</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Subhanallah</span>
+<span class="text-xs text-gray-500 dark:text-gray-400 font-medium">Tesbihat</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-lg font-bold text-slate-900 dark:text-white">33</span>
+<span class="text-xs text-gray-400 mb-0.5">x</span>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center justify-between rounded-2xl bg-white dark:bg-white/5 p-4 border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Elhamdulillah</span>
+<span class="text-xs text-gray-500 dark:text-gray-400 font-medium">Şükür</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-lg font-bold text-slate-900 dark:text-white">33</span>
+<span class="text-xs text-gray-400 mb-0.5">x</span>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="flex items-center justify-between rounded-2xl bg-white dark:bg-white/5 p-4 border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Allahuekber</span>
+<span class="text-xs text-gray-500 dark:text-gray-400 font-medium">Tekbir</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-lg font-bold text-slate-900 dark:text-white">34</span>
+<span class="text-xs text-gray-400 mb-0.5">x</span>
+</div>
+</div>
+</div>
+<!-- Bottom Spacer -->
+<div class="h-8"></div>
+</div>
+</div>
+</body></html>

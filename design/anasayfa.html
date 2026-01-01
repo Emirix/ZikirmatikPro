@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zikirmatik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "primary-dark": "#0fb645",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#193322",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom ripple effect for the button */
+        .ripple-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(19, 236, 91, 0.3);
+            animation: ripple 2s linear infinite;
+        }
+
+        .ripple-bg:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .ripple-bg:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 0.8;
+            }
+
+            100% {
+                width: 250%;
+                height: 250%;
+                opacity: 0;
+            }
+        }
+
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white h-screen overflow-hidden flex flex-col relative select-none">
+    <!-- Top Bar -->
+    <header class="flex items-center justify-between px-6 pt-12 pb-4 w-full z-20">
+        <button
+            class="flex items-center justify-center w-12 h-12 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+            <span class="material-symbols-outlined text-slate-600 dark:text-gray-300"
+                style="font-size: 24px;">history</span>
+        </button>
+        <h2 class="text-base font-bold tracking-widest uppercase text-slate-500 dark:text-primary/80">Zikirmatik</h2>
+        <button
+            class="flex items-center justify-center w-12 h-12 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+            <span class="material-symbols-outlined text-slate-600 dark:text-gray-300"
+                style="font-size: 24px;">settings</span>
+        </button>
+    </header>
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col w-full max-w-md mx-auto px-6 relative z-10 justify-between pb-8">
+        <!-- Dhikr Title & Info -->
+        <div class="flex flex-col items-center mt-4">
+            <h1 class="text-3xl md:text-4xl font-black tracking-tight text-center text-slate-900 dark:text-white mb-2">
+                Subhanallah</h1>
+            <p
+                class="text-sm font-medium text-slate-500 dark:text-gray-400 bg-white dark:bg-surface-dark px-4 py-1.5 rounded-full border border-slate-200 dark:border-primary/20">
+                Glory be to Allah
+            </p>
+        </div>
+        <!-- Counter Display Area -->
+        <div class="flex flex-col items-center justify-center flex-1 my-6 relative">
+            <!-- Decorative Glow -->
+            <div class="absolute w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <!-- Big Number -->
+            <div class="relative z-10 flex flex-col items-center">
+                <span
+                    class="text-[8rem] leading-none font-bold text-slate-900 dark:text-white tabular-nums tracking-tighter drop-shadow-lg">
+                    33
+                </span>
+                <span class="text-lg font-medium text-slate-500 dark:text-gray-400 mt-2">counts</span>
+            </div>
+        </div>
+        <!-- Progress Indicator -->
+        <div class="w-full mb-8">
+            <div class="flex justify-between items-end mb-2 px-1">
+                <span class="text-xs font-bold text-slate-500 dark:text-primary uppercase tracking-wider">Target
+                    Goal</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">33 <span
+                        class="text-slate-400 dark:text-gray-500 font-normal">/ 100</span></span>
+            </div>
+            <div class="h-3 w-full bg-slate-200 dark:bg-surface-dark rounded-full overflow-hidden shadow-inner">
+                <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(19,236,91,0.5)]"
+                    style="width: 33%"></div>
+            </div>
+            <div class="flex justify-between mt-2 px-1">
+                <span class="text-xs text-slate-400 dark:text-gray-500">Keep going, you're doing great.</span>
+                <span class="text-xs text-slate-400 dark:text-gray-500">33%</span>
+            </div>
+        </div>
+        <!-- Main Interaction Area -->
+        <div class="relative flex justify-center items-center pb-8">
+            <!-- Reset Button (Floating Top Left of Control Area) -->
+            <button aria-label="Reset Counter"
+                class="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-slate-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors">
+                <span class="material-symbols-outlined" style="font-size: 28px;">restart_alt</span>
+            </button>
+            <!-- Main Count Button -->
+            <button
+                class="group relative flex items-center justify-center w-28 h-28 md:w-32 md:h-32 rounded-3xl bg-slate-900 dark:bg-surface-dark border-4 border-slate-100 dark:border-primary/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] active:scale-95 transition-all duration-150 outline-none focus:ring-4 focus:ring-primary/40">
+                <!-- Inner button styling -->
+                <div
+                    class="absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-800 to-black dark:from-[#23482f] dark:to-[#112217] opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <span
+                    class="relative material-symbols-outlined text-white dark:text-primary z-10 transition-transform group-active:translate-y-1"
+                    style="font-size: 48px;">
+                    fingerprint
+                </span>
+                <!-- Ripple Animations (Purely CSS) -->
+                <div class="ripple-bg opacity-0 group-active:opacity-100 dark:border-primary/20 border-slate-400/20">
+                </div>
+                <div class="ripple-bg opacity-0 group-active:opacity-100 dark:border-primary/10 border-slate-400/10">
+                </div>
+            </button>
+            <!-- Sound Toggle (Floating Right) -->
+            <button aria-label="Toggle Sound"
+                class="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-slate-400 hover:text-primary dark:text-gray-500 dark:hover:text-primary transition-colors">
+                <span class="material-symbols-outlined" style="font-size: 28px;">volume_up</span>
+            </button>
+        </div>
+    </main>
+    <!-- Bottom sheet decoration (Visual only) -->
+    <div
+        class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50">
+    </div>
+</body>
+
+</html>
