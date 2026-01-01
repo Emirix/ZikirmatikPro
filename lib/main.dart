@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'providers/app_state.dart';
 import 'screens/main_scaffold.dart';
+import 'screens/onboarding/onboarding_screen.dart';
 import 'theme/app_colors.dart';
 
 void main() async {
@@ -24,6 +25,10 @@ class ZikirmatikApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasCompletedOnboarding = context
+        .watch<AppState>()
+        .hasCompletedOnboarding;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Zikirmatik Pro',
@@ -32,7 +37,10 @@ class ZikirmatikApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.backgroundDark,
         brightness: Brightness.dark,
       ),
-      home: const MainScaffold(),
+      home: hasCompletedOnboarding
+          ? const MainScaffold()
+          : const OnboardingScreen(),
+      routes: {'/home': (context) => const MainScaffold()},
     );
   }
 }

@@ -8,10 +8,12 @@ class AppState extends ChangeNotifier {
   List<ZikirModel> _zikirs = [];
   String? _activeZikirId;
   SettingsModel _settings = SettingsModel();
+  bool _hasCompletedOnboarding = false;
 
   // Getters
   List<ZikirModel> get zikirs => _zikirs;
   SettingsModel get settings => _settings;
+  bool get hasCompletedOnboarding => _hasCompletedOnboarding;
 
   ZikirModel? get activeZikir {
     if (_activeZikirId == null)
@@ -26,6 +28,9 @@ class AppState extends ChangeNotifier {
   // Initialization
   Future<void> loadState() async {
     final prefs = await SharedPreferences.getInstance();
+
+    // Load onboarding status
+    _hasCompletedOnboarding = prefs.getBool('hasCompletedOnboarding') ?? false;
 
     // Load Settings
     final settingsJson = prefs.getString('settings');
@@ -113,6 +118,13 @@ class AppState extends ChangeNotifier {
   void setVibrationIntensity(double value) {
     _settings.vibrationIntensity = value;
     _saveState();
+    notifyListeners();
+  }
+
+  Future<void> completeOnboarding() async {
+    _hasCompletedOnboarding = true;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasCompletedOnboarding', true);
     notifyListeners();
   }
 
