@@ -22,14 +22,13 @@ class ProgressBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("TARGET GOAL", style: AppTextStyles.labelSmall),
+              Text("TARGET GOAL", style: AppTextStyles.labelSmall(context)),
               RichText(
                 text: TextSpan(
                   text: "$current ",
-                  style: AppTextStyles.labelMedium.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: AppTextStyles.labelMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.bold, fontSize: 14),
                   children: [
                     TextSpan(
                       text: "/ $target",
@@ -50,7 +49,7 @@ class ProgressBar extends StatelessWidget {
           height: 12,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(999),
             boxShadow: [
               BoxShadow(
@@ -94,11 +93,15 @@ class ProgressBar extends StatelessWidget {
             children: [
               Text(
                 "Keep going, you're doing great.",
-                style: AppTextStyles.labelMedium.copyWith(fontSize: 12),
+                style: AppTextStyles.labelMedium(
+                  context,
+                ).copyWith(fontSize: 12),
               ),
               Text(
                 "$percentDisplay%",
-                style: AppTextStyles.labelMedium.copyWith(fontSize: 12),
+                style: AppTextStyles.labelMedium(
+                  context,
+                ).copyWith(fontSize: 12),
               ),
             ],
           ),

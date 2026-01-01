@@ -44,9 +44,11 @@ class _MainScaffoldState extends State<MainScaffold> {
       body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.backgroundDark,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textGray.withOpacity(0.5),
+        unselectedItemColor: Theme.of(
+          context,
+        ).colorScheme.onSurface.withOpacity(0.3),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         showSelectedLabels: false,

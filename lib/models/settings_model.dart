@@ -2,13 +2,13 @@ class SettingsModel {
   bool vibrationEnabled;
   bool soundEnabled;
   bool notificationsEnabled;
-  double vibrationIntensity; // 0.0 to 1.0
+  String themeMode; // 'green', 'light', 'darkBlue'
 
   SettingsModel({
     this.vibrationEnabled = true,
     this.soundEnabled = false,
     this.notificationsEnabled = true,
-    this.vibrationIntensity = 0.5, // Default to medium intensity
+    this.themeMode = 'green',
   });
 
   Map<String, dynamic> toJson() {
@@ -16,7 +16,7 @@ class SettingsModel {
       'vibrationEnabled': vibrationEnabled,
       'soundEnabled': soundEnabled,
       'notificationsEnabled': notificationsEnabled,
-      'vibrationIntensity': vibrationIntensity,
+      'themeMode': themeMode,
     };
   }
 
@@ -25,8 +25,7 @@ class SettingsModel {
       vibrationEnabled: json['vibrationEnabled'] ?? true,
       soundEnabled: json['soundEnabled'] ?? false,
       notificationsEnabled: json['notificationsEnabled'] ?? true,
-      vibrationIntensity:
-          (json['vibrationIntensity'] as num?)?.toDouble() ?? 0.5,
+      themeMode: json['themeMode'] ?? 'green',
     );
   }
 }

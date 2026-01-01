@@ -15,11 +15,15 @@ class ZikirListScreen extends StatelessWidget {
     final totalCount = zikirs.fold(0, (sum, item) => sum + item.currentCount);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddZikirDialog(context),
         backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add, color: AppColors.backgroundDark, size: 32),
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          size: 32,
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -33,16 +37,25 @@ class ZikirListScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.settings, color: Colors.white),
+                      Icon(
+                        Icons.settings,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       const SizedBox(width: 8),
-                      Text("Zikirler", style: AppTextStyles.titleLarge),
+                      Text(
+                        "Zikirler",
+                        style: AppTextStyles.titleLarge(context),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Zikirlerim", style: AppTextStyles.headerTitle),
+                      Text(
+                        "Zikirlerim",
+                        style: AppTextStyles.headerTitle(context),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -94,10 +107,14 @@ class ZikirListScreen extends StatelessWidget {
                           SnackBar(
                             content: Text(
                               "'${zikir.title}' seçildi.",
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
                             duration: const Duration(milliseconds: 500),
-                            backgroundColor: AppColors.surfaceDark,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface,
                           ),
                         );
                       },
@@ -106,14 +123,22 @@ class ZikirListScreen extends StatelessWidget {
                         final confirmed = await showDialog<bool>(
                           context: context,
                           builder: (ctx) => AlertDialog(
-                            backgroundColor: AppColors.surfaceDark,
-                            title: const Text(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface,
+                            title: Text(
                               "Zikri Sil",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
                             content: Text(
                               "'${zikir.title}' zikrini silmek istediğinizden emin misiniz?",
-                              style: const TextStyle(color: Colors.white70),
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
+                              ),
                             ),
                             actions: [
                               TextButton(
@@ -125,9 +150,13 @@ class ZikirListScreen extends StatelessWidget {
                                   backgroundColor: Colors.red,
                                 ),
                                 onPressed: () => Navigator.pop(ctx, true),
-                                child: const Text(
+                                child: Text(
                                   "Sil",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).scaffoldBackgroundColor,
+                                  ),
                                 ),
                               ),
                             ],
@@ -140,10 +169,16 @@ class ZikirListScreen extends StatelessWidget {
                             SnackBar(
                               content: Text(
                                 "'${zikir.title}' silindi.",
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
                               ),
                               duration: const Duration(milliseconds: 500),
-                              backgroundColor: AppColors.surfaceDark,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.surface,
                             ),
                           );
                         }
@@ -168,10 +203,10 @@ class ZikirListScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           "Yeni Zikir Ekle",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -182,7 +217,7 @@ class ZikirListScreen extends StatelessWidget {
                 labelText: "Başlık",
                 labelStyle: TextStyle(color: Colors.grey),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
             ),
             TextField(
               controller: descController,
@@ -190,7 +225,7 @@ class ZikirListScreen extends StatelessWidget {
                 labelText: "Açıklama / Arapça",
                 labelStyle: TextStyle(color: Colors.grey),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
             ),
             TextField(
               controller: targetController,
@@ -198,7 +233,7 @@ class ZikirListScreen extends StatelessWidget {
                 labelText: "Hedef",
                 labelStyle: TextStyle(color: Colors.grey),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               keyboardType: TextInputType.number,
             ),
           ],
@@ -221,9 +256,11 @@ class ZikirListScreen extends StatelessWidget {
                 Navigator.pop(ctx);
               }
             },
-            child: const Text(
+            child: Text(
               "Ekle",
-              style: TextStyle(color: AppColors.backgroundDark),
+              style: TextStyle(
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
             ),
           ),
         ],
@@ -257,12 +294,16 @@ class _ZikirCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isActive
-              ? AppColors.surfaceDark.withOpacity(0.8)
-              : AppColors.surfaceDark,
+              ? Theme.of(context).colorScheme.surface.withOpacity(0.8)
+              : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: isActive
               ? Border.all(color: AppColors.primary.withOpacity(0.5))
-              : Border.all(color: Colors.white.withOpacity(0.05)),
+              : Border.all(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.05),
+                ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -280,7 +321,7 @@ class _ZikirCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isActive
                     ? AppColors.primary.withOpacity(0.2)
-                    : Colors.white.withOpacity(0.05),
+                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -301,8 +342,8 @@ class _ZikirCard extends StatelessWidget {
                     children: [
                       Text(
                         zikir.title,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -346,7 +387,9 @@ class _ZikirCard extends StatelessWidget {
                         height: 6,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(3),
                         ),
                       ),
@@ -381,7 +424,9 @@ class _ZikirCard extends StatelessWidget {
                 Text(
                   "${zikir.currentCount}",
                   style: TextStyle(
-                    color: isActive ? AppColors.primary : Colors.white,
+                    color: isActive
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onSurface,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),

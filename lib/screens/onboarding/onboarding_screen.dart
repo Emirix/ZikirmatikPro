@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPressed: _nextPage,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.backgroundDark,
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -127,7 +127,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   child: Text(
                     _currentPage == _steps.length - 1 ? 'Başlayalım' : 'Devam',
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // Changed from hardcoded white to theme-aware onPrimary
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -178,10 +181,10 @@ class _OnboardingPage extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 height: 1.2,
               ),
               children: [

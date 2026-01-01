@@ -7,6 +7,7 @@ import '../theme/app_text_styles.dart';
 import '../widgets/top_bar_button.dart';
 import '../widgets/counter_button.dart';
 import '../widgets/progress_bar.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'main_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,9 +19,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  void _playClickSound() {
-    // Play system click sound
-    SystemSound.play(SystemSoundType.click);
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  void _playClickSound() async {
+    // Play custom click sound from assets
+    await _audioPlayer.play(AssetSource('sounds/tiklama.wav'));
   }
 
   int? _previousCounter;
@@ -53,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen>
     final description = activeZikir?.description ?? "Glory be to Allah";
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Stack(
           children: [
@@ -91,20 +100,30 @@ class _HomeScreenState extends State<HomeScreen>
                         left: 12,
                         child: IconButton(
                           icon: const Icon(Icons.restart_alt, size: 32),
-                          color: AppColors.textWhite,
+                          color: Theme.of(context).colorScheme.onSurface,
                           onPressed: () async {
                             // Show confirmation dialog
                             final confirmed = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => AlertDialog(
-                                backgroundColor: AppColors.surfaceDark,
-                                title: const Text(
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.surface,
+                                title: Text(
                                   "Sıfırla",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
+                                  ),
                                 ),
-                                content: const Text(
+                                content: Text(
                                   "Sayacı sıfırlamak istediğinizden emin misiniz?",
-                                  style: TextStyle(color: Colors.white70),
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface.withOpacity(0.7),
+                                  ),
                                 ),
                                 actions: [
                                   TextButton(
@@ -116,10 +135,12 @@ class _HomeScreenState extends State<HomeScreen>
                                       backgroundColor: AppColors.primary,
                                     ),
                                     onPressed: () => Navigator.pop(ctx, true),
-                                    child: const Text(
+                                    child: Text(
                                       "Sıfırla",
                                       style: TextStyle(
-                                        color: AppColors.backgroundDark,
+                                        color: Theme.of(
+                                          context,
+                                        ).scaffoldBackgroundColor,
                                       ),
                                     ),
                                   ),
@@ -137,7 +158,10 @@ class _HomeScreenState extends State<HomeScreen>
                           },
                         ),
                       ),
-                      Text("ZIKIRMATIK", style: AppTextStyles.headerTitle),
+                      Text(
+                        "ZIKIRMATIK",
+                        style: AppTextStyles.headerTitle(context),
+                      ),
                       TopBarButton(
                         icon: Icons.settings,
                         onPressed: () {
@@ -164,7 +188,10 @@ class _HomeScreenState extends State<HomeScreen>
                         // Title Section
                         Column(
                           children: [
-                            Text(title, style: AppTextStyles.titleLarge),
+                            Text(
+                              title,
+                              style: AppTextStyles.titleLarge(context),
+                            ),
                             if (description.isNotEmpty) ...[
                               const SizedBox(height: 9),
                               Container(
@@ -173,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.surfaceDark,
+                                  color: Theme.of(context).colorScheme.surface,
                                   borderRadius: BorderRadius.circular(999),
                                   border: Border.all(
                                     color: AppColors.primary.withOpacity(0.2),
@@ -181,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 ),
                                 child: Text(
                                   description,
-                                  style: AppTextStyles.pillText,
+                                  style: AppTextStyles.pillText(context),
                                 ),
                               ),
                             ],
@@ -214,15 +241,15 @@ class _HomeScreenState extends State<HomeScreen>
                                 curve: Curves.easeInOut,
                                 child: Text(
                                   "$counter",
-                                  style: AppTextStyles.displayHuge,
+                                  style: AppTextStyles.displayHuge(context),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               Text(
                                 "Zikir",
-                                style: AppTextStyles.labelMedium.copyWith(
-                                  fontSize: 18,
-                                ),
+                                style: AppTextStyles.labelMedium(
+                                  context,
+                                ).copyWith(fontSize: 18),
                               ),
                             ],
                           ),
@@ -235,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen>
                             const SizedBox(height: 32),
 
                             // Interaction Area
-                            Container(
+                            SizedBox(
                               height: 140,
                               width: double.infinity,
                               child: Stack(
@@ -245,17 +272,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     onPressed: () {
                                       // Check vibration setting before haptic feedback
                                       if (appState.settings.vibrationEnabled) {
-                                        final intensity = appState
-                                            .settings
-                                            .vibrationIntensity;
-                                        // Map intensity to different haptic feedback types
-                                        if (intensity < 0.33) {
-                                          HapticFeedback.selectionClick(); // Light
-                                        } else if (intensity < 0.66) {
-                                          HapticFeedback.lightImpact(); // Medium
-                                        } else {
-                                          HapticFeedback.mediumImpact(); // Strong
-                                        }
+                                        HapticFeedback.lightImpact();
                                       }
 
                                       // Check sound setting before playing sound

@@ -22,8 +22,12 @@ class TopBarButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           customBorder: const CircleBorder(),
-          hoverColor: Colors.white.withOpacity(0.1),
-          child: Icon(icon, color: Colors.grey[300], size: 24),
+          hoverColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+          child: Icon(
+            icon,
+            color: Theme.of(context).colorScheme.onSurface,
+            size: 24,
+          ),
         ),
       ),
     );

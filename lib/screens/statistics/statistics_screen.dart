@@ -25,7 +25,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     int totalCount = zikirs.fold(0, (sum, item) => sum + item.history.length);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -36,9 +36,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
-                    const Icon(Icons.bar_chart, color: Colors.white),
+                    Icon(
+                      Icons.bar_chart,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                     const SizedBox(width: 8),
-                    Text("İstatistikler", style: AppTextStyles.titleLarge),
+                    Text(
+                      "İstatistikler",
+                      style: AppTextStyles.titleLarge(context),
+                    ),
                   ],
                 ),
               ),
@@ -62,7 +68,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? AppColors.surfaceDark
+                                ? Theme.of(context).colorScheme.surface
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -92,10 +98,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               const SizedBox(height: 4),
               Text(
                 "$totalCount",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.w900,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontFamily: 'Manrope',
                 ),
               ),
@@ -177,7 +183,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceDark,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(color: Colors.white.withOpacity(0.05)),
                 ),
@@ -198,13 +204,13 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "3 Günlük Seri",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -276,7 +282,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Ayrıntılar",
-                    style: AppTextStyles.headerTitle.copyWith(fontSize: 18),
+                    style: AppTextStyles.headerTitle(
+                      context,
+                    ).copyWith(fontSize: 18),
                   ),
                 ),
               ),
@@ -297,7 +305,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   return Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.surfaceDark,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: Colors.white.withOpacity(0.05)),
                     ),
@@ -322,8 +330,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                             children: [
                               Text(
                                 zikir.title,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
@@ -344,8 +354,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                           children: [
                             Text(
                               "$count",
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),

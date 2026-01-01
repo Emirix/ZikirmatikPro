@@ -64,7 +64,7 @@ class _CounterButtonState extends State<CounterButton>
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                color: AppColors.surfaceDark,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(
                   28,
                 ), // roughly 2rem rounded-3xl
@@ -89,11 +89,9 @@ class _CounterButtonState extends State<CounterButton>
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xFF23482F), Color(0xFF112217)],
-                        ),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.2),
                       ),
                     ),
 

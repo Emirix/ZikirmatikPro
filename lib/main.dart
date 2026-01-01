@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'providers/app_state.dart';
 import 'screens/main_scaffold.dart';
 import 'screens/onboarding/onboarding_screen.dart';
-import 'theme/app_colors.dart';
+import 'theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,18 +24,26 @@ class ZikirmatikApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasCompletedOnboarding = context
-        .watch<AppState>()
-        .hasCompletedOnboarding;
+    final appState = context.watch<AppState>();
+    final hasCompletedOnboarding = appState.hasCompletedOnboarding;
+
+    // Map theme string to enum
+    AppThemeMode themeMode;
+    switch (appState.settings.themeMode) {
+      case 'light':
+        themeMode = AppThemeMode.light;
+        break;
+      case 'darkBlue':
+        themeMode = AppThemeMode.darkBlue;
+        break;
+      default:
+        themeMode = AppThemeMode.green;
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Zikirmatik Pro',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppColors.backgroundDark,
-        brightness: Brightness.dark,
-      ),
+      theme: AppTheme.getTheme(themeMode).toThemeData(),
       home: hasCompletedOnboarding
           ? const MainScaffold()
           : const OnboardingScreen(),

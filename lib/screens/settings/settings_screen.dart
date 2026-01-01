@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
     final settings = appState.settings;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -22,9 +22,12 @@ class SettingsScreen extends StatelessWidget {
               // Header
               Row(
                 children: [
-                  const Icon(Icons.settings, color: Colors.white),
+                  Icon(
+                    Icons.settings,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                   const SizedBox(width: 8),
-                  Text("Ayarlar", style: AppTextStyles.titleLarge),
+                  Text("Ayarlar", style: AppTextStyles.titleLarge(context)),
                 ],
               ),
               const SizedBox(height: 24),
@@ -67,10 +70,10 @@ class SettingsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Reklamsız Deneyim",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
@@ -118,10 +121,10 @@ class SettingsScreen extends StatelessWidget {
                         color: Colors.white.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
+                      child: Text(
                         "21:00",
                         style: TextStyle(
-                          color: AppColors.primary,
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -145,59 +148,7 @@ class SettingsScreen extends StatelessWidget {
                       appState.toggleVibration(val);
                     },
                   ),
-                  // Vibration Intensity Slider (shown when vibration is enabled)
-                  if (settings.vibrationEnabled) ...[
-                    const _Divider(),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(68, 8, 16, 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Titreşim Seviyesi",
-                                style: TextStyle(
-                                  color: AppColors.textGray,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                "${(settings.vibrationIntensity * 100).round()}%",
-                                style: const TextStyle(
-                                  color: AppColors.primary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SliderTheme(
-                            data: SliderThemeData(
-                              activeTrackColor: AppColors.primary,
-                              inactiveTrackColor: AppColors.primary.withOpacity(
-                                0.2,
-                              ),
-                              thumbColor: AppColors.primary,
-                              overlayColor: AppColors.primary.withOpacity(0.2),
-                              trackHeight: 4,
-                            ),
-                            child: Slider(
-                              value: settings.vibrationIntensity,
-                              min: 0.0,
-                              max: 1.0,
-                              divisions: 10,
-                              onChanged: (value) {
-                                appState.setVibrationIntensity(value);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                  if (!settings.vibrationEnabled) const _Divider(),
+                  const _Divider(),
                   _SettingsSwitchTile(
                     icon: Icons.volume_up,
                     iconColor: Colors.pink,
@@ -215,36 +166,31 @@ class SettingsScreen extends StatelessWidget {
               _SectionTitle(title: "Görünüm"),
               _SettingsGroup(
                 children: [
-                  _SettingsActionTile(
-                    icon: Icons.palette,
-                    iconColor: Colors.grey,
-                    title: "Tema Rengi",
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _ColorCircle(
-                          color: const Color(0xFF13EC5B),
-                          isSelected: true,
-                        ),
-                        const SizedBox(width: 8),
-                        _ColorCircle(
-                          color: const Color(0xFF3B82F6),
-                          isSelected: false,
-                        ),
-                        const SizedBox(width: 8),
-                        _ColorCircle(
-                          color: const Color(0xFF8B5CF6),
-                          isSelected: false,
-                        ),
-                      ],
-                    ),
-                    onTap: () {},
+                  _ThemeTile(
+                    label: "Yeşil (Varsayılan)",
+                    color: const Color(0xFF102216),
+                    isSelected: settings.themeMode == 'green',
+                    onTap: () => appState.setThemeMode('green'),
+                  ),
+                  const _Divider(),
+                  _ThemeTile(
+                    label: "Beyaz",
+                    color: Colors.white,
+                    isSelected: settings.themeMode == 'light',
+                    onTap: () => appState.setThemeMode('light'),
+                  ),
+                  const _Divider(),
+                  _ThemeTile(
+                    label: "Koyu Mavi",
+                    color: const Color(0xFF0F172A),
+                    isSelected: settings.themeMode == 'darkBlue',
+                    onTap: () => appState.setThemeMode('darkBlue'),
                   ),
                 ],
               ),
               const SizedBox(height: 40),
-              const Center(
-                child: Text(
+              Center(
+                child: const Text(
                   "Sürüm 1.4.2 (Build 204)",
                   style: TextStyle(color: AppColors.textGray, fontSize: 12),
                 ),
@@ -290,7 +236,7 @@ class _SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surfaceDark,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white.withOpacity(0.05)),
       ),
@@ -337,8 +283,8 @@ class _SettingsSwitchTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -357,7 +303,7 @@ class _SettingsSwitchTile extends StatelessWidget {
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: AppColors.primary,
+            activeThumbColor: AppColors.primary,
             activeTrackColor: AppColors.primary.withOpacity(0.2),
           ),
         ],
@@ -401,8 +347,8 @@ class _SettingsActionTile extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -429,24 +375,61 @@ class _Divider extends StatelessWidget {
   }
 }
 
-class _ColorCircle extends StatelessWidget {
+class _ThemeTile extends StatelessWidget {
+  final String label;
   final Color color;
   final bool isSelected;
-  const _ColorCircle({required this.color, required this.isSelected});
+  final VoidCallback onTap;
+
+  const _ThemeTile({
+    required this.label,
+    required this.color,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        border: isSelected ? Border.all(color: Colors.white, width: 2) : null,
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        child: Row(
+          children: [
+            Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white.withOpacity(0.2)),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            if (isSelected)
+              Icon(
+                Icons.check_circle,
+                color: Theme.of(context).colorScheme.primary,
+                size: 24,
+              )
+            else
+              Icon(
+                Icons.circle_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                size: 24,
+              ),
+          ],
+        ),
       ),
-      child: isSelected
-          ? const Icon(Icons.check, color: Colors.black, size: 20)
-          : null,
     );
   }
 }

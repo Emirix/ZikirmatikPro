@@ -4,44 +4,44 @@ import 'app_colors.dart';
 
 class AppTextStyles {
   // Using Manrope as requested
-  static TextStyle get displayHuge => GoogleFonts.manrope(
-    fontSize: 96, // ~8rem
+  static TextStyle displayHuge(BuildContext context) => GoogleFonts.manrope(
+    fontSize: 96,
     fontWeight: FontWeight.w700,
     height: 1.0,
-    color: AppColors.textWhite,
+    color: Theme.of(context).textTheme.displayLarge?.color ?? Colors.white,
     fontFeatures: [const FontFeature.tabularFigures()],
   );
 
-  static TextStyle get titleLarge => GoogleFonts.manrope(
-    fontSize: 36, // ~text-4xl
+  static TextStyle titleLarge(BuildContext context) => GoogleFonts.manrope(
+    fontSize: 36,
     fontWeight: FontWeight.w900,
-    color: AppColors.textWhite,
+    color: Theme.of(context).textTheme.displayLarge?.color ?? Colors.white,
     letterSpacing: -1.0,
   );
 
-  static TextStyle get labelMedium => GoogleFonts.manrope(
+  static TextStyle labelMedium(BuildContext context) => GoogleFonts.manrope(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: AppColors.textGray,
+    color: Theme.of(context).textTheme.bodyMedium?.color ?? AppColors.textGray,
   );
 
-  static TextStyle get labelSmall => GoogleFonts.manrope(
+  static TextStyle labelSmall(BuildContext context) => GoogleFonts.manrope(
     fontSize: 12,
     fontWeight: FontWeight.w700,
-    color: AppColors.textGray,
-    letterSpacing: 1.0, // wider tracking
+    color: Theme.of(context).textTheme.bodyMedium?.color ?? AppColors.textGray,
+    letterSpacing: 1.0,
   );
 
-  static TextStyle get pillText => GoogleFonts.manrope(
+  static TextStyle pillText(BuildContext context) => GoogleFonts.manrope(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: AppColors.textGray,
+    color: Theme.of(context).textTheme.bodyMedium?.color ?? AppColors.textGray,
   );
 
-  static TextStyle get headerTitle => GoogleFonts.manrope(
+  static TextStyle headerTitle(BuildContext context) => GoogleFonts.manrope(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    letterSpacing: 2.0, // tracking-widest
+    letterSpacing: 2.0,
     color: AppColors.primary.withOpacity(0.8),
   );
 }

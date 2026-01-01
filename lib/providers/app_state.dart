@@ -16,8 +16,9 @@ class AppState extends ChangeNotifier {
   bool get hasCompletedOnboarding => _hasCompletedOnboarding;
 
   ZikirModel? get activeZikir {
-    if (_activeZikirId == null)
+    if (_activeZikirId == null) {
       return _zikirs.isNotEmpty ? _zikirs.first : null;
+    }
     try {
       return _zikirs.firstWhere((z) => z.id == _activeZikirId);
     } catch (e) {
@@ -115,8 +116,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setVibrationIntensity(double value) {
-    _settings.vibrationIntensity = value;
+  void setThemeMode(String theme) {
+    _settings.themeMode = theme;
     _saveState();
     notifyListeners();
   }
